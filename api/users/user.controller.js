@@ -9,7 +9,6 @@ const {
   deleteUser,
   getUserByEmail,
 } = require("./user.service");
-
 const { genSaltSync, hashSync, compareSync } = require("bcrypt");
 const { sign } = require("jsonwebtoken");
 
@@ -21,6 +20,7 @@ module.exports = {
    */
   createUser: (req, res) => {
     const body = req.body;
+    const loginBody = { email: body.email, password: body.password };
     const salt = genSaltSync(10);
     body.password = hashSync(body.password, salt);
     create(body, (err, results) => {
